@@ -1,0 +1,104 @@
+{% extends 'temp.html' %}
+{% block page_name %}Home{% endblock %}
+
+{% block head_script %}
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <script src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/geotools.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/fancyTable.js') }}"></script>
+
+{% endblock %}
+
+
+{% block body_part %}
+
+
+<main role="main" class="container">
+    <div class="row">
+        <div class="offset-1 col-md-10" style="margin-bottom: 20px">
+            <h4>Result</h4>
+            <p>Your request has been processed and the annotation of your synonymous mutations are finished.
+                You will also receive an e-mail, please remember to check. The result can be downloaded at:&nbsp;<a
+                        href="downResult?filename={{ filename }}">{{ filename }}</a></p>
+            <div class="container" style="padding: 30px 0;">
+                <h4>Result search Table</h4>
+                <table id="sampleTable" class="table table-striped sampleTable">
+                    <thead>
+                        <tr>
+                            <th>chr</th>
+                            <th>pos</th>
+                            <th>id</th>
+                            <th>ref</th>
+                            <th>alt</th>
+                            <th>EnDSM</th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <style>
+                    .form-inline .form-control {
+                        margin: 5px;
+                    }
+                </style>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        // Word genarator
+        {#function rWord(r) { var t, n = "bcdfghjklmnpqrstvwxyz", a = "aeiou", e = function (r) { return Math.floor(Math.random() * r) }, o = ""; r = parseInt(r, 10), n = n.split(""), a = a.split(""); for (t = 0; t < r / 2; t++) { var l = n[e(n.length)], p = a[e(a.length)]; o += 0 === t ? l.toUpperCase() : l, o += 2 * t < r - 1 ? p : "" } return o }#}
+
+        $(document).ready(function () {
+            // And a simple one
+            rdata = eval('{{ resultdata|safe  }}');
+
+            for (var n = 0; n < {{ resultdatalen }}; n++) {
+                var row = $("<tr>");
+                for (var nn = 0; nn < 6; nn++) {
+                    $("<td>", {
+
+                        html: rdata[n][Number(nn)],
+                        style: "padding:2px;"
+                    }).appendTo($(row));
+                }
+                {#$(row).find("td:last").first().html(moment(new Date(Math.floor(new Date().getTime() * Math.random()))).format('l'));#}
+                row.appendTo($("#sampleTable"));
+            }
+
+            $("#sampleTable").fancyTable({
+                pagination: true,
+                perPage: 10
+            });
+        });
+    </script>
+
+
+
+
+
+
+</main>
+
+{% endblock %}
+

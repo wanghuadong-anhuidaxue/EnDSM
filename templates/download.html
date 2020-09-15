@@ -1,0 +1,127 @@
+{% extends 'temp.html' %}
+{% block page_name %}Download{% endblock %}
+
+{% block head_script %}
+    <style>
+        dt {
+            font-size: 18px;
+        }
+
+        dd strong {
+            font-weight: 500;
+        }
+
+        dd div {
+            margin-left: 20px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body_part %}
+
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="offset-1 col-md-10" style="margin-bottom: 20px">
+                <div style="margin-left: 20px">
+                    <dl>
+                        <dt>
+                            <svg width="1em" height="1em" viewBox="0 1 18 18" class="bi bi-chevron-double-right"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                <path fill-rule="evenodd"
+                                      d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>&nbsp; Generate the index file by
+                            <mark>tabix</mark>
+                        </dt>
+                        <div style="margin-left: 30px">
+                            <dd><code>bgzip -c GRCh37_whole_genome_sSNVs_EnDSM.vcf >
+                                GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz<br>
+                                tabix -p vcf GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz</code></dd>
+                        </div>
+
+                        <dt>
+                            <svg width="1em" height="1em" viewBox="0 1 18 18" class="bi bi-chevron-double-right"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                <path fill-rule="evenodd"
+                                      d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>&nbsp;Genome Build
+                        </dt>
+                        <div style="margin-left: 30px">
+                            <dd><strong>EnDSM</strong> predictions used the GRCh37/hg19 genome build.</dd>
+                        </div>
+                        <dt>
+                            <svg width="1em" height="1em" viewBox="0 1 18 18" class="bi bi-chevron-double-right"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                <path fill-rule="evenodd"
+                                      d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>&nbsp;
+                            Running the Software
+                        </dt>
+                        <div style="margin-left: 30px">
+                            <dd>
+                                <strong>Minimum requirements of usage:</strong><br>
+                                <div>Tabix-0.2.6</div>
+                                <strong>Add tabix to your PATH:</strong><br>
+                                <div>export PATH=./tabix-0.2.6/:$PATH</div>
+                                <strong>Download our pre-computed data: </strong><br>
+                                <div><svg width="1.1em" height="1.1em" viewBox="0 1 16 16" class="bi bi-file-earmark-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+  <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+  <path fill-rule="evenodd" d="M5.646 9.146a.5.5 0 0 1 .708 0L8 10.793l1.646-1.647a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 0-.708z"/>
+  <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0v-4A.5.5 0 0 1 8 6z"/>
+</svg>&nbsp;<a href="{{ url_for('static', filename='download/GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz') }}">GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz</a></div>
+                                <div><svg width="1.1em" height="1.1em" viewBox="0 1 16 16" class="bi bi-file-earmark-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+  <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+  <path fill-rule="evenodd" d="M5.646 9.146a.5.5 0 0 1 .708 0L8 10.793l1.646-1.647a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 0-.708z"/>
+  <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0v-4A.5.5 0 0 1 8 6z"/>
+</svg>&nbsp;<a href="{{ url_for('static', filename='download/GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz.tbi') }}">GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz.tbi</a><br>
+                                    MD5Sums: &nbsp; 1c14d58ce0ad91b00e051e435bdc2cd5
+                                </div>
+
+                            </dd>
+                        </div>
+                        <dt>
+                            <svg width="1em" height="1em" viewBox="0 1 18 18" class="bi bi-chevron-double-right"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                <path fill-rule="evenodd"
+                                      d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>&nbsp;
+                            Usage:
+                        </dt>
+                        <div style="margin-left: 30px">
+                            <dd>
+                                <strong>A synonymous variant, like this: </strong><br>
+                                <div><code>tabix GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz chrom:start-end</code></div>
+
+                                <div>e.g.<br><code>tabix PrDSM_Grch37_20190304.vcf.gz 1:69096-69096 </code></div>
+                                <strong>Large batches of synonymous variants, like this:</strong>
+                                <div><code>bash file_in.sh > file_out.vcf</code><br>
+                                    e.g.
+                                    <pre style="background-color: #2A2B24; color: #dddddd; border-radius: 3px; padding: 10px">
+#! /bin/sh
+tabix GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz 1:69096-69096
+tabix GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz 1:69099-69099
+tabix GRCh37_whole_genome_sSNVs_EnDSM.vcf.gz 1:69102-69102</pre>
+
+                                </div>
+
+                            </dd>
+                        </div>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

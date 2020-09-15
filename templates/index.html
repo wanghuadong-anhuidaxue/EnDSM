@@ -1,0 +1,259 @@
+{% extends 'temp.html' %}
+{% block page_name %}Home{% endblock %}
+
+{% block head_script %}
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        .divstrong {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+    </style>
+    <link href="{{ url_for('static', filename='css/loading.css') }}" rel="stylesheet">
+    <script type="text/javascript" language="javascript" src="{{ url_for('static', filename='js/loading.js') }}"></script>
+    <script>
+        //检查序列
+        function check_task(mutation) {
+            var mutation_array = mutation.split('\n');
+            var mutation_length_dict = new Array();
+            console.log(mutation_array.length)
+            // console.log('111:'+sequences)
+            // 最大允许提交10000条突变
+            if (mutation_array.length > 10000) {
+                $("#textareacontrol").text("The maximum number of mutation is 10000 in one submission!");
+                $("#textareacontrol").removeAttr("class","invalid-feedback");
+                $("#textareacontrol").addClass("form-control is-invalid");
+                return false;
+            }
+            for (i in mutation_array) {
+                if (mutation_array[i].split('\t').length != 5) {
+                    $("#textareacontrol").text("The line "+Number(i)+" VCF format error!");
+                    $("#textareacontrol").removeAttr("class","invalid-feedback");
+                    $("#textareacontrol").addClass("form-control is-invalid");
+                    return false
+                }
+            }
+
+            return true;
+        }
+
+        var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+        // 检查是输入还是上传文件
+        function check_sequence() {
+            thisform = document.submitForm;
+            var mutation = document.getElementById("userInput");
+            data = mutation.value;
+
+            //输入框中的内容优先
+            if (data == "") {
+                var objFile = document.getElementById("uploaddata");
+                if (objFile.value == "") {
+                    $("#textareacontrol").text("Please paste the mutation in the TEXT area or upload a file!");
+                    $("#textareacontrol").removeAttr("class","invalid-feedback");
+                    $("#textareacontrol").addClass("form-control is-invalid");
+                } else {
+                    //将上传的文件转化成mutation
+                    var files = $('#uploaddata').prop('files')[0];
+
+                    var reader = new FileReader();
+                    reader.readAsText(files, "UTF-8");
+                    reader.onload = function (evt) {
+                        //var fileString = evt.target.result;
+                        mutation.value = evt.target.result;
+                        if (check_task(mutation.value)) {
+                            alert(check_task(mutation.value))
+                            $("#textareacontrol").addClass("invalid-feedback");
+                            if ($('#eMail').val() != '') {
+                                if (reg.test($('#eMail').val())) {
+                                    $("#emailcontrol").addClass("invalid-feedback");
+                                    loading()
+                                    thisform.submit();
+                                } else {
+                                    $("#emailcontrol").text("Please check you e-mail address!");
+                                    $("#emailcontrol").removeAttr("class","invalid-feedback");
+                                    $("#emailcontrol").addClass("form-control is-invalid");
+                                    return false;
+                                }
+                            } else {
+                                $("#emailcontrol").text("Please input you e-mail address!");
+                                $("#emailcontrol").removeAttr("class","invalid-feedback");
+                                $("#emailcontrol").addClass("form-control is-invalid");
+                                return false;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (check_task(data)) {
+                    $("#textareacontrol").addClass("invalid-feedback");
+                    if ($('#eMail').val() != '') {
+                        if (reg.test($('#eMail').val())) {
+                            $("#emailcontrol").addClass("invalid-feedback");
+                            loading()
+                            thisform.submit();
+                        }else{
+                            $("#emailcontrol").text("Please check you e-mail address!");
+                            $("#emailcontrol").removeAttr("class","invalid-feedback");
+                            $("#emailcontrol").addClass("form-control is-invalid");
+                            console.log("e2");
+
+                            return false;
+                        }
+                    } else {
+                        $("#emailcontrol").text("Please input you e-mail address!");
+                        $("#emailcontrol").removeAttr("class","invalid-feedback");
+                        $("#emailcontrol").addClass("form-control is-invalid");
+                        return false;
+                    }
+                }
+            }
+
+        }
+    </script>
+
+
+
+    <script>
+        function runExample() {
+            $("#userInput").val("1	69096	.	G	A");
+        };
+
+        function reset1() {
+            $('#t1').text("Please upload the VCF file");
+            $("#textareacontrol").addClass("invalid-feedback");
+            $("#emailcontrol").addClass("invalid-feedback");
+            return true;
+        };
+    </script>
+
+
+    <script type="text/javascript">
+        // loading动画
+        function loading() {
+            $('body').loading({
+                loadingWidth:240,
+                title:'',
+                name:'aaaloading',
+                discription:'loading ...',
+                direction:'column',
+                type:'origin',
+                // originBg:'#71EA71',
+                originDivWidth:40,
+                originDivHeight:40,
+                originWidth:6,
+                originHeight:6,
+                smallLoading:false,
+                loadingMaskBg:'rgba(0,0,0,0)'
+            });
+
+            setTimeout(function(){
+                removeLoading('testloading');
+            },90000000);
+        }
+    </script>
+    <script>
+        function getFileName(path) {
+            var obj = document.getElementById("t1");
+            var pos1 = path.lastIndexOf('/');
+            var pos2 = path.lastIndexOf('\\');
+            var pos = Math.max(pos1, pos2)
+            if (pos < 0) {
+                obj.innerHTML = path;
+            } else {
+                obj.innerHTML = path.substring(pos + 1);
+            }
+        }
+    </script>
+
+{% endblock %}
+
+
+{% block body_part %}
+
+
+<main role="main" class="container">
+    <div class="row">
+        <div class="offset-1 col-md-10" style="margin-bottom: 20px">
+            <div class="divstrong">
+                <div><strong>Overview</strong></div>
+                <div style="border: 0.5px solid rgba(153,153,153,0.2); margin-bottom: 10px"></div>
+            </div>
+            <p style="text-align: justify;">Advances in next generation sequencing technologies have detected numerous synonymous mutations in
+                the human genome that do not alter amino acids. In recent years, much work have pointed out the
+                important role of synonymous mutations in many human diseases, including psychiatric disease,
+                congenital heart disease, and cancer. However, it is difficult to distinguish disease-associated
+                from benign synonymous mutations. Experimental characterization of all identified synonymous mutations
+                is unpractical and usually time-consuming, costly and labor intensive. Consequently,
+                the scientific community needs computational methods to highlight the most likely deleterious synonymous mutations.</p>
+            <p style="text-align: justify;">In this study, we develop an ensemble predictor <strong>EnDSM(v1.0)</strong> by conducting a comprehensive performance evaluation
+                of existing tools for predicting deleterious synonymous mutations and synonymous mutations conservation,
+                splicing and sequence feature. Independent tests demonstrate that the ensemble predictor outperform the current tools.</p>
+            <div class="divstrong"><strong>Job Start</strong><div style="border: 0.5px solid rgba(153,153,153,0.2); margin-bottom: 10px"></div></div>
+            <p style="text-align: justify;">Insert the list of synonymous mutations using the tab separated values
+                    format chr, pos, id, ref, alt (maximum 10,000 mutations for 5 column) <a style="color: #46b8da"
+                                                                                              href="#"
+                                                                                              onclick="runExample()">Example</a>
+            <form method="post" action="analysisSubmit" id="submitForm" name="submitForm"
+                  style="margin-top: 10px">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{ form.data }}
+                    <div class="invalid-feedback" id="textareacontrol">
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="width: 100%">
+                    <div class="custom-file" style="width: 30%">
+                        {{ form.uploaddata }}
+                        <label id="t1" class="custom-file-label" for="uploaddata" style="color:#6c757d;">Please upload the VCF file</label>
+                    </div>
+                    <div class="form-text" style="float: right; font-size: 15px" align="justify">
+                        Learn more about <a style="color: #46b8da"
+                                            href="{{ url_for('help') }}" target="_blank">output</a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div style="width: 30%">
+                        {{ form.email }}
+                    </div>
+                    <div class="invalid-feedback" id="emailcontrol">
+                    </div>
+                </div>
+
+                <input type="button" id="submitBtn" class="btn btn-primary" onclick="check_sequence()" lay-submit
+                       lay-filter="*" value="Submit" style="background: #46b8da; border-color: #46b8da">
+                <input type="reset" id="resetBtn" class="btn btn-light" lay-filter="reset"
+                       value="reset" onclick="reset1()">
+            </form>
+            <div class="divstrong"><strong>Download</strong><div style="border: 0.5px solid rgba(153,153,153,0.2); margin-bottom: 10px"></div></div>
+            <p style="text-align: justify;">EnDSM, the pre-computed score is available on <a style="color: #46b8da"
+                                            href="{{ url_for('download') }}" target="_blank">here</a>.</p>
+            <div class="divstrong"><strong>Citation</strong><div style="border: 0.5px solid rgba(153,153,153,0.2); margin-bottom: 10px"></div></div>
+            <p style="text-align: justify;">Na Cheng, Huadong Wang and Junfeng Xia*, An ensemble strategy-based predictor using effective feature learning approach to improve the prediction of deleterious synonymous mutation , 20xx, doi:xx
+                <br>If you have any problem with the website, please contact Junfeng Xia: <strong>jfxia@ahu.edu.cn</strong></p>
+            <div style="margin-left: 20px"><strong>Note:</strong>:EnDSM is intended for research purposes only. Do not use the results to make clinical decisions.</div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+

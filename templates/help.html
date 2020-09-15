@@ -1,0 +1,49 @@
+{% extends 'temp.html' %}
+{% block page_name %}Help{% endblock %}
+
+{% block head_script %}
+{% endblock %}
+
+
+{% block body_part %}
+    <main role="main" class="container">
+        <div class="row">
+            <div class="offset-1 col-md-10" style="margin-bottom: 20px">
+                <strong style="font-weight: bold; font-style:italic; font-size: 18px">Prediction Interpretation</strong><div style="border: 0.5px solid rgba(153,153,153,0.2);"></div><br>
+                <p style="text-align: justify">EnDSM (v1.0): Predictive score of EnDSM for each synonymous mutation. The
+                    predictive score between 0 and 1, with the highest score indicating the most deleterious synonymous
+                    variant and the lowest score the synonymous more benign variant. If a EnDSM score is >0.559 the
+                    corresponding synonymous mutation is considered as deleterious. If the score <=0.559 the variant is
+                    considered as benign.
+                </p>
+                <p style="text-align: justify">
+                    Note: Ensembl database build version is v92; <a href="https://www.ensembl.org/info/docs/tools/vep/index.html">https://www.ensembl.org/info/docs/tools/vep/index.html</a>
+                </p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>chr</th>
+                            <th>pos</th>
+                            <th>id</th>
+                            <th>ref</th>
+                            <th>alt</th>
+                            <th>EnDSM</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for line in data %}
+                            <tr>
+                                {% for li in line %}
+                                    <td>{{ li }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

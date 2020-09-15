@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>EnDSM {% block page_name %}{% endblock %} </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+
+    <script type="text/javascript" language="javascript" src="{{ url_for('static', filename='js/jquery-3.4.1.js') }}"></script>
+    <script type="text/javascript" language="javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <style>
+        .blog-footer {
+            padding: 1.0rem 0;
+            color: #9f9f9f;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-top: .05rem solid #e5e5e5;
+        }
+
+        .blog-footer p:last-child {
+            margin-bottom: 0;
+        }
+        .blog-footer a{
+            color: #46b8da;
+        }
+        a:hover,a:active,a:link{text-decoration: none;}
+
+    </style>
+    <!-----//768px-menu----->
+    {% block head_script %}
+    {% endblock %}
+</head>
+<body>
+<!-- start header -->
+<div class="container"><a href="{{url_for('home')}}">
+    <div class="jumbotron p-4 p-md-4" style="background: url('{{ url_for('static', filename='images/EnDSM.gif') }}');background-size: cover;">
+        <div class="col-md-6 px-0" style="height: 250px">
+            <h1 class="display-4 font-italic"></h1>
+        </div>
+    </div></a>
+</div>
+<!-- 各页面主体内容 -->
+
+{% block body_part %}
+{% endblock %}
+
+<!-- 以下是脚部分的内容 -->
+<footer class="blog-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-3" align='left'>
+                <div style="display:inline-block;"></div>
+        <!--				      	<div style="display:inline-block;width:200px;"><script type="text/javascript" src="//rf.revolvermaps.com/0/0/7.js?i=0nqmwz0cey3&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0" async="async"></script></div>-->
+            </div>
+            <div class="col-6"  align='center'>
+                 Links:
+                <a class="ow" href="http://bioinfo.ahu.edu.cn:8080/PrDSM/" target="_blank">PrDSM</a>
+                <div style="display:inline;">|</div>
+                <a class="ow" href="http://bioinfo.ahu.edu.cn:8080/IDSV/" target="_blank">IDSV</a>
+
+                <div class="copyright">
+                    Copyright©
+                    <a class="ow" href="http://en.ahu.edu.cn/" target="_blank">AnHui University</a> ©All Rights Reserved.
+                </div>
+            </div>
+            <div class="col-3" align='right'>
+                 <div>
+        <!--							<script type="text/javascript" src="//rf.revolvermaps.com/0/0/0.js?i=52m8mqpvyan&amp;d=3&amp;p=0&amp;b=0&amp;w=218&amp;g=2&amp;f=arial&amp;fs=12&amp;r=0&amp;c0=362b05&amp;c1=375363&amp;c2=000000&amp;ic0=0&amp;ic1=0" async="async"></script>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

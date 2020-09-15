@@ -1,0 +1,21 @@
+{% extends 'temp.html' %}
+{% block page_name %}404{% endblock %}
+
+
+{% block head_script %}
+
+{% endblock %}
+
+
+{% block body_part %}
+    <main role="main" class="container">
+        <div class="row">
+            <div class="offset-1 col-md-10" style="margin-bottom: 20px">
+                <div style="text-align: center">
+                    <strong>404 error</strong><br>
+                    <a href="{{ url_for('home') }}" style="color: #46b8da">back to Home</a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
